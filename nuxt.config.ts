@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+console.log(process.env.NUXT_APP_BASE_URL);
+
 export default defineNuxtConfig({
   title: "chat-appstore",
   app: {
@@ -13,10 +15,10 @@ export default defineNuxtConfig({
         // { src: "//unpkg.com/element-plus", tagPosition: "bodyClose" }
       ]
     },
-    baseURL: "/chat-appstore/",
+    baseURL: process.env.NUXT_APP_BASE_URL,
+    // baseURL: "/chat-appstore/",
     buildAssetsDir: "/_nuxt/"
   },
-
   css: ["@/assets/css/elementui.scss"],
   imports: {
     autoImport: true

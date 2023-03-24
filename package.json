@@ -2,16 +2,17 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "dev": "NUXT_APP_BASE_URL=/ nuxt dev",
+    "generate": "NUXT_APP_BASE_URL=/chat-appstore/ nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "^3.3.1",
     "@nuxtjs/tailwindcss": "^6.6.1",
+    "@types/node": "^18.15.6",
     "element-plus": "^2.3.1",
     "node-sass": "^8.0.0",
+    "nuxt": "^3.3.1",
     "sass": "^1.59.3"
   },
   "__npminstall_done": false,
