@@ -13,7 +13,7 @@ export default defineNuxtConfig({
         // { src: "//unpkg.com/element-plus", tagPosition: "bodyClose" }
       ]
     },
-    buildAssetsDir: './_nuxt/'
+    buildAssetsDir: './'
   },
 
   css: ["@/assets/css/elementui.scss"],
