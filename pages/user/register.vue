@@ -109,11 +109,11 @@ const form = reactive({
 
 const rules = {
   username: [
-    { required: true, message: "请输入用户名", trigger: "blur" },
     {
+      required: true,
       trigger: "blur",
       validator: (rule: any, value: string, callback: () => void) => {
-        if (value === "") {
+        if (value.trim() === "") {
           callback(new Error("请输入用户名"));
         } else {
           api
@@ -133,11 +133,32 @@ const rules = {
     }
   ],
   telNumber: [
-    { required: true, message: "请输入手机号", trigger: "blur" },
     {
       pattern: /^1[3456789]\d{9}$/,
       message: "请输入正确的手机号",
       trigger: "blur"
+    },
+    {
+      trigger: "blur",
+      required: true,
+      validator: (rule: any, value: string, callback: () => void) => {
+        if (value.trim() === "") {
+          callback(new Error("请输入手机号"));
+        } else {
+          api
+            .isTelUsed({
+              telNumber: value
+            })
+            .then(({ data: res }) => {
+              console.log(res);
+              if (res.data) {
+                callback(new Error("手机号已被注册"));
+              } else {
+                callback();
+              }
+            });
+        }
+      }
     }
   ],
   password: [

@@ -134,16 +134,19 @@ const rules = {
 };
 
 const formEl = ref<any>(null);
+const codeImgKey = "codeImgKey";
 const submitForm = () => {
   formEl.value.validate((valid: boolean) => {
     if (!valid) return false;
     api.login(qs(form)).then(({ data: res }) => {
       if (res.code !== 200) {
+        localStorage.setItem("codeImgKey", "1");
         getCodeImg();
         ElNotification.error(res.msg);
         return;
       }
       ElNotification.success("登录成功");
+      localStorage.removeItem("codeImgKey");
       store.login(false);
     });
   });
@@ -166,6 +169,12 @@ const getCodeImg = () => {
     });
   });
 };
+
+onMounted(() => {
+  if (localStorage.getItem("codeImgKey")) {
+    getCodeImg();
+  }
+});
 // definePageMeta({
 //   layout: false
 // });

@@ -10,6 +10,8 @@ export default {
   sendMsg: (params: RequestParams) => axios.get("/user/send_msg", { params }),
   isUserNameUsed: (params: RequestParams) =>
     axios.get("/user/is_username_used", { params }),
+  isTelUsed: (params: RequestParams) =>
+    axios.get("/user/is_tel_used", { params }),
   login: (params: RequestParams) => axios.post("/user/login", params),
   logout: (params: RequestParams) => axios.get("/user/logout", { params }),
   refreshToken: (params: RequestParams) =>
