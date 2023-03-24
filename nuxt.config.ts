@@ -12,8 +12,10 @@ export default defineNuxtConfig({
         // { src: "//unpkg.com/vue@3", tagPosition: "bodyClose" },
         // { src: "//unpkg.com/element-plus", tagPosition: "bodyClose" }
       ]
-    }
+    },
+    buildAssetsDir: './_nuxt/'
   },
+
   css: ["@/assets/css/elementui.scss"],
   imports: {
     autoImport: true
