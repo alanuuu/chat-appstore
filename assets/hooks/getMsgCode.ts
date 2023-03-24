@@ -2,7 +2,7 @@ import api from "@/api";
 
 const useMsg = () => {
   const btnText = ref("获取验证码");
-  const btnTime = ref(5);
+  const btnTime = ref(60);
   const btnDisabled = ref(false);
   const getMsgCode = (telNumber: string | number) => {
     if (btnDisabled.value) return;
@@ -16,13 +16,14 @@ const useMsg = () => {
           clearInterval(timer);
           btnText.value = "获取验证码";
           btnDisabled.value = false;
-          btnTime.value = 5;
+          btnTime.value = 60;
         }
       }, 1000);
     });
   };
   return {
     btnText,
+    btnDisabled,
     getMsgCode
   };
 };

@@ -27,7 +27,12 @@
           <el-form-item label="验证码" prop="msgCode">
             <div class="flex w-full">
               <el-input class="flex-1 mr-2" v-model="form.msgCode" />
-              <el-button class="w-28" @click="getCode">{{ btnText }}</el-button>
+              <el-button
+                :disabled="btnDisabled"
+                class="w-28"
+                @click="getCode"
+                >{{ btnText }}</el-button
+              >
             </div>
           </el-form-item>
           <el-form-item prop="rule">
@@ -109,6 +114,11 @@ const form = reactive({
 
 const rules = {
   username: [
+    {
+      pattern: /^[a-zA-Z0-9_]+$/,
+      message: "用户名只能填写字母数字或下划线",
+      trigger: "blur"
+    },
     {
       required: true,
       trigger: "blur",
@@ -225,7 +235,7 @@ const submitForm = () => {
 //     }, 1000);
 //   });
 // };
-const { btnText, getMsgCode } = useMsg();
+const { btnText, btnDisabled, getMsgCode } = useMsg();
 const getCode = () => {
   formEl.value.validateField(["telNumber"]).then((valid: boolean) => {
     if (!valid) return false;

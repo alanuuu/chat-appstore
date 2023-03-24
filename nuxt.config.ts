@@ -1,6 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-console.log(process.env.NUXT_APP_BASE_URL);
-
 export default defineNuxtConfig({
   title: "chat-appstore",
   app: {

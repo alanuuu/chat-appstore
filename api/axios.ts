@@ -1,8 +1,8 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://devbitapi-test.csdn.net:8080";
-// axios.defaults.baseURL = "http://192.168.80.190:8080";
+// axios.defaults.baseURL = "http://devbitapi-test.csdn.net:8080";
+axios.defaults.baseURL = "http://192.168.80.190:8080";
 
 axios.interceptors.request.use(
   config => {

@@ -125,10 +125,7 @@ const form = reactive({
 });
 
 const rules = {
-  password: [
-    { required: true, message: "请输入密码", trigger: "blur" },
-    { min: 6, max: 20, message: "密码长度在6到20个字符之间", trigger: "blur" }
-  ],
+  password: [{ required: true, message: "请输入密码", trigger: "blur" }],
   username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
   imgCode: [{ required: true, message: "请输入验证码", trigger: "blur" }]
 };
