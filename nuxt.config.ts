@@ -13,7 +13,7 @@ export default defineNuxtConfig({
         // { src: "//unpkg.com/element-plus", tagPosition: "bodyClose" }
       ]
     },
-    baseURL: "./"
+    buildAssetsDir: '/chat-appstore/_nuxt/'
   },
 
   css: ["@/assets/css/elementui.scss"],
