@@ -1,5 +1,5 @@
 <template>
-  <Popover as="header" class="relative">
+  <Popover as="header" class="relative z-20">
     <div class="bg-gray-900 py-3">
       <nav
         class="relative max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6"
@@ -36,17 +36,18 @@
         </div>
         <div class="hidden md:flex md:items-center md:space-x-6">
           <a
+            @click="login"
             href="#"
             class="text-base font-medium text-white hover:text-gray-300"
           >
             登录
           </a>
-          <a
-            href="#"
+          <nuxt-link
+            to="/dev/console/dashboard"
             class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
           >
             控制台
-          </a>
+        </nuxt-link>
         </div>
       </nav>
     </div>
@@ -111,32 +112,24 @@
       </PopoverPanel>
     </transition>
   </Popover>
+  <Login />
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/outline";
 import { ChevronRightIcon } from "@heroicons/vue/solid";
+import Login from "./Login.vue";
+import useStore from "~~/store";
+const store = useStore();
 
 const navigation = [
-  { name: "首页", href: "#" },
-  { name: "机器人文档", href: "#" },
+  { name: "首页", href: "/dev" },
+  { name: "机器人文档", href: "/dev/doc/prompt" },
   { name: "应用文档", href: "#" }
 ];
 
-export default {
-  components: {
-    Popover,
-    PopoverButton,
-    PopoverPanel,
-    ChevronRightIcon,
-    MenuIcon,
-    XIcon
-  },
-  setup() {
-    return {
-      navigation
-    };
-  }
+const login = () => {
+  store.login(true);
 };
 </script>
 <style lang="scss" scoped></style>

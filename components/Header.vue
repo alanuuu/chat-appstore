@@ -35,6 +35,26 @@
             </nuxt-link>
           </div>
         </div>
+        <!-- Search section -->
+        <div class="flex justify-center lg:justify-end">
+          <div class="w-full px-2 lg:px-6">
+            <label for="search" class="sr-only">搜索</label>
+            <div class="relative text-indigo-200 focus-within:text-gray-400">
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <SearchIcon class="h-5 w-5" aria-hidden="true" />
+              </div>
+              <input
+                id="search"
+                name="search"
+                class="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-indigo-400 bg-opacity-25 text-indigo-100 placeholder-indigo-200 focus:outline-none focus:bg-white focus:ring-0 focus:placeholder-gray-400 focus:text-gray-900 sm:text-sm"
+                placeholder="搜索"
+                type="search"
+              />
+            </div>
+          </div>
+        </div>
         <div class="hidden md:flex md:items-center md:space-x-6">
           <a
             href="#"
@@ -118,16 +138,17 @@
 <script setup lang="ts">
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/outline";
+import { SearchIcon } from "@heroicons/vue/solid";
 import useStore from "@/store";
-import Login from "./login.vue";
+import Login from "./Login.vue";
 
 const store = useStore();
 
 const navigation = [
-  { name: "首页", href: "#" },
-  { name: "机器人广场", href: "#" },
-  { name: "应用广场", href: "#" },
-  { name: "排行榜", href: "#" },
+  { name: "首页", href: "/" },
+  { name: "机器人广场", href: "/prompt" },
+  { name: "应用广场", href: "/app" },
+  { name: "排行榜", href: "/rank" },
   { name: "开发者中心", href: "/dev" }
 ];
 
