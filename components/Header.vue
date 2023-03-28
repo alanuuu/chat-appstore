@@ -140,7 +140,7 @@ import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/outline";
 import { SearchIcon } from "@heroicons/vue/solid";
 import useStore from "@/store";
-import Login from "./Login.vue";
+import Login from "@/components/Login.vue";
 
 const store = useStore();
 
