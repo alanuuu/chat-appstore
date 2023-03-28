@@ -117,7 +117,6 @@
 <script lang="ts" setup>
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/outline";
-import { ChevronRightIcon } from "@heroicons/vue/solid";
 import Login from "./Login.vue";
 import useStore from "~~/store";
 const store = useStore();
