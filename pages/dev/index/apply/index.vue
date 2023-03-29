@@ -26,20 +26,29 @@
           <el-form-item label="身份证" prop="idcard">
             <el-input v-model="form.idcard" type="idcard" />
           </el-form-item>
-          <!-- <el-form-item label="手机号" prop="telNumber">
-            <el-input maxlength="11" v-model="form.telNumber" />
-          </el-form-item>
-          <el-form-item label="验证码" prop="msgCode">
+          <el-form-item label="上传身份证" prop="idcardImg">
             <div class="flex w-full">
-              <el-input class="flex-1 mr-2" v-model="form.msgCode" />
-              <el-button
-                :disabled="btnDisabled"
-                class="w-28"
-                @click="getCode"
-                >{{ btnText }}</el-button
+              <el-upload class="w-1/2 avatar-uploader" :show-file-list="false">
+                <img
+                  v-if="form.idcardImg"
+                  :src="form.idcardImg"
+                  class="avatar"
+                />
+                <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+              </el-upload>
+              <el-upload
+                class="ml-2 w-1/2 avatar-uploader"
+                :show-file-list="false"
               >
+                <img
+                  v-if="form.idcardImg"
+                  :src="form.idcardImg"
+                  class="avatar"
+                />
+                <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+              </el-upload>
             </div>
-          </el-form-item> -->
+          </el-form-item>
           <el-form-item prop="rule">
             <div class="flex items-center justify-between">
               <div class="flex items-center">
@@ -99,8 +108,11 @@ import {
   ElInput,
   ElRadio,
   ElRadioGroup,
-  ElNotification
+  ElNotification,
+  ElUpload,
+  ElIcon
 } from "element-plus";
+import { Plus } from "@element-plus/icons-vue";
 import useStore from "@/store";
 import api from "@/api";
 import { useMsg } from "@/assets/hooks";
@@ -112,6 +124,7 @@ const form = reactive({
   type: "1",
   name: "",
   idcard: "",
+  idcardImg: "",
   rule: false
 });
 
@@ -138,7 +151,9 @@ const rules = {
       trigger: "blur"
     }
   ],
-
+  idcardImg: [
+    { required: true, message: "请上传身份证正反面", trigger: "change" }
+  ],
   rule: [
     {
       required: true,
@@ -182,13 +197,6 @@ const submitForm = () => {
 //     }, 1000);
 //   });
 // };
-const { btnText, btnDisabled, getMsgCode } = useMsg();
-const getCode = () => {
-  formEl.value.validateField(["telNumber"]).then((valid: boolean) => {
-    if (!valid) return false;
-    getMsgCode(form.telNumber);
-  });
-};
 
 const login = () => {
   store.login(true);
@@ -206,6 +214,14 @@ const login = () => {
       margin-bottom: 4px;
       font-weight: bold;
     }
+  }
+  .avatar-uploader .avatar {
+    width: 100%;
+    height: 178px;
+    display: block;
+  }
+  :deep(.el-upload) {
+    width: 100%;
   }
 }
 </style>
