@@ -9,3 +9,8 @@ export enum SourceMap {
   doc = "文档",
   app = "应用"
 }
+
+export enum IdCard {
+  front = 1,
+  back = 2
+}

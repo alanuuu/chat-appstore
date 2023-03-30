@@ -80,7 +80,7 @@
 </template>
 <script setup lang="ts">
 import { ElForm, ElFormItem, ElInput, ElButton, ElDialog } from "element-plus";
-import useStore from "@/store";
+import { useStore} from "@/store";
 import { storeToRefs } from "pinia";
 import api from "@/api";
 

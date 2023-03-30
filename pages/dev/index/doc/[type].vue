@@ -192,22 +192,22 @@ const docs = {
     {
       id: 2,
       type: "p",
-      text: "每个开发者拥有一个独立的token"
+      text: "每个开发者拥有一个独立的token，注册成为开发者即送三个月免费token"
     },
     {
       id: 3,
       type: "img",
-      url: "https://cdn-static-devbit.csdn.net/appstore/imgs/Snipaste_2023-03-29_16-53-03.png"
+      url: "https://cdn-static-devbit.csdn.net/appstore/imgs/Snipaste_2023-03-30_13-35-18.png"
     },
     {
       id: 4,
       type: "h3",
-      text: "测试文档机器人"
+      text: "测试应用"
     },
     {
       id: 5,
       type: "h3",
-      text: "提交机器人"
+      text: "提交应用"
     }
   ]
 };

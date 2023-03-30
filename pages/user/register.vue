@@ -96,7 +96,7 @@ import {
   ElDialog,
   ElNotification
 } from "element-plus";
-import useStore from "@/store";
+import { useStore} from "@/store";
 import api from "@/api";
 import { useMsg } from "@/assets/hooks";
 import { qs } from "@/assets/utils";

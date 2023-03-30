@@ -5,6 +5,7 @@ interface RequestParams {
 }
 
 export default {
+  // 登录注册
   getCodeImg: (params: RequestParams) =>
     axios.get("/user/code_img", { params, responseType: "blob" }),
   sendMsg: (params: RequestParams) => axios.get("/user/send_msg", { params }),
@@ -16,5 +17,9 @@ export default {
   logout: (params: RequestParams) => axios.get("/user/logout", { params }),
   refreshToken: (params: RequestParams) =>
     axios.post("/user/refresh_token", params),
-  register: (params: RequestParams) => axios.post("/user/register", params)
+  register: (params: RequestParams) => axios.post("/user/register", params),
+  // 开发者
+  get_card_up_url: (params: RequestParams) =>
+    axios.get("/user/get_card_up_url", { params }),
+  put: (params: RequestParams) => axios(params)
 };

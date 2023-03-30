@@ -1,14 +1,21 @@
 import { defineStore } from "pinia";
 
-const useStore = defineStore("store", {
-  state: () => ({
-    showLogin: false
+interface State {
+  showLogin: boolean;
+  userInfo: UserInfo;
+}
+
+export const useStore = defineStore("store", {
+  state: (): State => ({
+    showLogin: false,
+    userInfo: ""
   }),
   actions: {
     login(isShow: boolean) {
       this.showLogin = isShow;
+    },
+    changeUserInfo(val: UserInfo) {
+      this.userInfo = val;
     }
   }
 });
-
-export default useStore;

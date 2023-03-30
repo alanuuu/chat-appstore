@@ -20,7 +20,7 @@
                 <el-input v-model="form.username" />
               </el-form-item>
               <el-form-item label="密码" prop="password">
-                <el-input v-model="form.password" />
+                <el-input v-model="form.password" type="password" />
               </el-form-item>
               <el-form-item v-if="imgSrc" label="验证码" prop="imgCode">
                 <div class="flex w-full">
@@ -110,7 +110,7 @@ import {
   ElButton,
   ElDialog
 } from "element-plus";
-import useStore from "@/store";
+import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { qs } from "@/assets/utils";
 import api from "@/api";
@@ -143,7 +143,13 @@ const submitForm = () => {
         return;
       }
       ElNotification.success("登录成功");
+      localStorage.setItem("token", res?.data);
       localStorage.removeItem("codeImgKey");
+      const userInfo = {
+        username: form.username
+      };
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+      store.changeUserInfo(userInfo);
       store.login(false);
     });
   });

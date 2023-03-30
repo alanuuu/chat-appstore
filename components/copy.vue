@@ -118,7 +118,7 @@
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/outline";
 import Login from "~~/components/LoginCom.vue";
-import useStore from "~~/store";
+import { useStore} from "~~/store";
 const store = useStore();
 
 const navigation = [

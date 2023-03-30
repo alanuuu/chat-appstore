@@ -18,10 +18,7 @@
             <el-input v-model="form.name" />
           </el-form-item>
           <el-form-item :label="`${pageTitle}图标`" prop="logo">
-            <el-upload class="avatar-uploader" :show-file-list="false">
-              <img v-if="form.logo" :src="form.logo" class="avatar" />
-              <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-            </el-upload>
+            <upload key="logo" />
           </el-form-item>
           <el-form-item label="分类" prop="cate">
             <el-select
@@ -107,11 +104,12 @@ import {
   ElNotification
 } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
-import useStore from "@/store";
+import { useStore} from "@/store";
 import api from "@/api";
 import { useMsg } from "@/assets/hooks";
 import { qs } from "@/assets/utils";
 import { SourceType, SourceMap } from "~~/types";
+import upload from "./components/upload.vue";
 
 const store = useStore();
 const route = useRoute();
@@ -206,11 +204,6 @@ const login = () => {
       margin-bottom: 4px;
       font-weight: bold;
     }
-  }
-  .avatar-uploader .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
   }
 }
 </style>

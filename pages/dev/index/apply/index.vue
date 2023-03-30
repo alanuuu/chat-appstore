@@ -28,7 +28,13 @@
           </el-form-item>
           <el-form-item label="上传身份证" prop="idcardImg">
             <div class="flex w-full">
-              <el-upload class="w-1/2 avatar-uploader" :show-file-list="false">
+              <el-upload
+                action=""
+                :before-upload="e => upload(e, IdCard.front)"
+                :multiple="false"
+                class="w-1/2 avatar-uploader"
+                :show-file-list="false"
+              >
                 <img
                   v-if="form.idcardImg"
                   :src="form.idcardImg"
@@ -37,6 +43,9 @@
                 <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
               </el-upload>
               <el-upload
+                action=""
+                :before-upload="e => upload(e, IdCard.back)"
+                :multiple="false"
                 class="ml-2 w-1/2 avatar-uploader"
                 :show-file-list="false"
               >
@@ -113,10 +122,11 @@ import {
   ElIcon
 } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
-import useStore from "@/store";
+import { useStore } from "@/store";
 import api from "@/api";
-import { useMsg } from "@/assets/hooks";
 import { qs } from "@/assets/utils";
+import { IdCard } from "~~/types";
+import axios from "axios";
 
 const store = useStore();
 
@@ -162,6 +172,27 @@ const rules = {
       trigger: "change"
     }
   ]
+};
+
+const upload = (file: File, type: IdCard) => {
+  console.log(file);
+  api
+    .get_card_up_url({
+      aspect: type
+    })
+    .then(({ data: res }) => {
+      console.log(res);
+      const url = res?.data.replace(/^http/, "https");
+      if (!url) return;
+      axios({
+        url,
+        method: "PUT",
+        data: file
+      }).then(res => {
+        console.log(res);
+      });
+    });
+  return false;
 };
 
 const formEl = ref<any>(null);

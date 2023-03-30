@@ -56,19 +56,23 @@
           </div>
         </div>
         <div class="hidden md:flex md:items-center md:space-x-6">
-          <a
-            href="#"
-            @click="login"
-            class="text-base font-medium text-white hover:text-gray-300"
-          >
-            登录
-          </a>
-          <nuxt-link
-            to="/user/register"
-            class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-          >
-            注册
-          </nuxt-link>
+          <a v-if="store.userInfo" class="text-base font-medium text-white">{{
+            store.userInfo?.username
+          }}</a>
+          <template v-else>
+            <a
+              @click="login"
+              class="text-base font-medium text-white hover:text-gray-300"
+            >
+              登录
+            </a>
+            <nuxt-link
+              to="/user/register"
+              class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+            >
+              注册
+            </nuxt-link>
+          </template>
         </div>
       </nav>
     </div>
@@ -139,10 +143,15 @@
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/outline";
 import { SearchIcon } from "@heroicons/vue/solid";
-import useStore from "@/store";
+import { useStore } from "@/store";
 import Login from "~~/components/LoginCom.vue";
 
 const store = useStore();
+
+onMounted(() => {
+  const userInfo = localStorage.getItem("userInfo");
+  userInfo && store.changeUserInfo(JSON.parse(userInfo));
+});
 
 const navigation = [
   { name: "首页", href: "/" },

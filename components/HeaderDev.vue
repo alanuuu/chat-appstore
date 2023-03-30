@@ -265,6 +265,12 @@
           </PopoverGroup>
           <div class="flex items-center md:ml-12">
             <a
+              v-if="store.userInfo"
+              class="text-base font-medium text-gray-500 hover:text-gray-900"
+              >{{ store.userInfo?.username }}</a
+            >
+            <a
+              v-else
               @click="login"
               class="cursor-pointer text-base font-medium text-gray-500 hover:text-gray-900"
               >登录
@@ -441,9 +447,14 @@ import {
   XIcon
 } from "@heroicons/vue/outline";
 import { ChevronDownIcon } from "@heroicons/vue/solid";
-import useStore from "~~/store";
+import { useStore } from "~~/store";
 import LoginCom from "./LoginCom.vue";
 const store = useStore();
+
+onMounted(() => {
+  const userInfo = localStorage.getItem("userInfo");
+  userInfo && store.changeUserInfo(JSON.parse(userInfo));
+});
 
 const login = () => {
   store.login(true);
