@@ -21,5 +21,6 @@ export default {
   // 开发者
   get_card_up_url: (params: RequestParams) =>
     axios.get("/user/get_card_up_url", { params }),
+  reg_dev: (params: RequestParams) => axios.post("/user/reg_dev", params),
   put: (params: RequestParams) => axios(params)
 };

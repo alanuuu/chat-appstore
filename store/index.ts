@@ -14,6 +14,13 @@ export const useStore = defineStore("store", {
     login(isShow: boolean) {
       this.showLogin = isShow;
     },
+    logout() {
+      this.changeUserInfo("");
+      if (process.client) {
+        localStorage.removeItem("userInfo");
+        localStorage.removeItem("token");
+      }
+    },
     changeUserInfo(val: UserInfo) {
       this.userInfo = val;
     }

@@ -76,7 +76,7 @@ const supportLinks = [
     name: "提交机器人",
     href: "#",
     description:
-      "Varius facilisi mauris sed sit. Non sed et duis dui leo, vulputate id malesuada non. Cras aliquet purus dui laoreet diam sed lacus, fames.",
+      "提交基于Prompt构建的机器人，分享给其他人使用",
     icon: ChatDotRound
     // icon: PhoneIcon,
   },
@@ -84,7 +84,7 @@ const supportLinks = [
     name: "提交Doc AI",
     href: "#",
     description:
-      "Varius facilisi mauris sed sit. Non sed et duis dui leo, vulputate id malesuada non. Cras aliquet purus dui laoreet diam sed lacus, fames.",
+      "上传文档创建文档机器人",
     icon: Document
     // icon: SupportIcon,
   },
@@ -92,7 +92,7 @@ const supportLinks = [
     name: "提交应用",
     href: "#",
     description:
-      "Varius facilisi mauris sed sit. Non sed et duis dui leo, vulputate id malesuada non. Cras aliquet purus dui laoreet diam sed lacus, fames.",
+      "提交您的应用",
     icon: Mouse
     // icon: NewspaperIcon,
   }

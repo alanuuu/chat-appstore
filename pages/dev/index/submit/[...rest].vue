@@ -70,18 +70,18 @@
           </el-form-item>
         </el-form>
         <div class="mt-6 flex justify-between">
-          <button
+          <!-- <button
             @click="submitForm"
             type="submit"
             class="w-1/2 mr-4 inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
           >
             测 试
-          </button>
+          </button> -->
 
           <button
             @click="submitForm"
             type="submit"
-            class="w-1/2 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             提 交
           </button>

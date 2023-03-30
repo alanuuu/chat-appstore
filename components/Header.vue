@@ -56,13 +56,25 @@
           </div>
         </div>
         <div class="hidden md:flex md:items-center md:space-x-6">
-          <a v-if="store.userInfo" class="text-base font-medium text-white">{{
+          <!-- <a v-if="store.userInfo" class="text-base font-medium text-white">{{
             store.userInfo?.username
-          }}</a>
+          }}</a> -->
+
+          <ul v-if="store.userInfo">
+            <li class="text-base font-medium text-white">
+              {{ store.userInfo?.username }}
+            </li>
+            <li
+              @click="logout"
+              class="cursor-pointer text-sm font-medium text-gray-400 hover:text-white"
+            >
+              退出
+            </li>
+          </ul>
           <template v-else>
             <a
               @click="login"
-              class="text-base font-medium text-white hover:text-gray-300"
+              class="cursor-pointer text-base font-medium text-white hover:text-gray-300"
             >
               登录
             </a>
@@ -164,6 +176,8 @@ const navigation = [
 const login = () => {
   store.login(true);
 };
+
+const logout = store.logout;
 
 // export default {
 //   components: {

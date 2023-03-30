@@ -20,11 +20,11 @@
             </el-radio-group>
           </el-form-item>
           <h2 class="font-bold my-8 text-gray-600">联系方式</h2>
-          <el-form-item label="姓名" prop="name">
-            <el-input v-model="form.name" />
+          <el-form-item label="姓名" prop="realName">
+            <el-input v-model="form.realName" />
           </el-form-item>
-          <el-form-item label="身份证" prop="idcard">
-            <el-input v-model="form.idcard" type="idcard" />
+          <el-form-item label="身份证" prop="cardId">
+            <el-input v-model="form.cardId" type="cardId" />
           </el-form-item>
           <el-form-item label="上传身份证" prop="idcardImg">
             <div class="flex w-full">
@@ -36,8 +36,8 @@
                 :show-file-list="false"
               >
                 <img
-                  v-if="form.idcardImg"
-                  :src="form.idcardImg"
+                  v-if="form.idcardImg1"
+                  :src="form.idcardImg1"
                   class="avatar"
                 />
                 <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
@@ -50,8 +50,8 @@
                 :show-file-list="false"
               >
                 <img
-                  v-if="form.idcardImg"
-                  :src="form.idcardImg"
+                  v-if="form.idcardImg2"
+                  :src="form.idcardImg2"
                   class="avatar"
                 />
                 <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
@@ -64,7 +64,7 @@
                 <input
                   v-model="form.rule"
                   id="remember-me"
-                  name="remember-me"
+                  realName="remember-me"
                   type="checkbox"
                   class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
@@ -127,19 +127,21 @@ import api from "@/api";
 import { qs } from "@/assets/utils";
 import { IdCard } from "~~/types";
 import axios from "axios";
+import pick from "lodash.pick";
 
 const store = useStore();
 
 const form = reactive({
   type: "1",
-  name: "",
-  idcard: "",
-  idcardImg: "",
+  realName: "",
+  cardId: "",
+  idcardImg1: "",
+  idcardImg2: "",
   rule: false
 });
 
 const rules = {
-  name: [
+  realName: [
     {
       required: true,
       message: "请输入姓名",
@@ -152,7 +154,7 @@ const rules = {
     }
   ],
 
-  idcard: [
+  cardId: [
     { required: true, message: "请输入身份证号", trigger: "blur" },
     {
       pattern:
@@ -162,7 +164,16 @@ const rules = {
     }
   ],
   idcardImg: [
-    { required: true, message: "请上传身份证正反面", trigger: "change" }
+    {
+      required: true,
+      trigger: "change",
+      validator: (rule: any, value: string, callback: () => void) => {
+        if (!form.idcardImg1 || !form.idcardImg2) {
+          return callback(new Error("请上传身份证正反面"));
+        }
+        callback();
+      }
+    }
   ],
   rule: [
     {
@@ -184,13 +195,25 @@ const upload = (file: File, type: IdCard) => {
       console.log(res);
       const url = res?.data.replace(/^http/, "https");
       if (!url) return;
-      axios({
-        url,
-        method: "PUT",
-        data: file
-      }).then(res => {
-        console.log(res);
-      });
+      switch (type) {
+        case IdCard.front:
+          form.idcardImg1 =
+            "https://cdn-static-devbit.csdn.net/appstore/imgs/Snipaste_2023-03-30_13-35-18.png";
+          break;
+        case IdCard.back:
+          form.idcardImg2 =
+            "https://cdn-static-devbit.csdn.net/appstore/imgs/Snipaste_2023-03-30_13-35-18.png";
+          break;
+        default:
+          break;
+      }
+      // axios({
+      //   url,
+      //   method: "PUT",
+      //   data: file
+      // }).then(res => {
+      //   console.log(res);
+      // });
     });
   return false;
 };
@@ -199,11 +222,12 @@ const formEl = ref<any>(null);
 const submitForm = () => {
   formEl.value.validate((valid: boolean) => {
     if (!valid) return false;
-    const data = qs(form);
-    api.register(data).then(({ data: res }) => {
+    const data = pick(form, ["realName", "cardId"]);
+    api.reg_dev(data).then(({ data: res }) => {
       console.log(res);
       if (res?.code !== 200) return;
-      ElNotification.success("注册成功!");
+      ElNotification.success("提交成功，请等待审核");
+      navigateTo('/dev/console/dashboard')
     });
   });
 };
