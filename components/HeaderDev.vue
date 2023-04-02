@@ -481,21 +481,21 @@ const solutions = [
   {
     name: "提交机器人",
     description: "创建您的机器人，并分享给其他用户",
-    href: "/dev/doc/prompt",
+    href: "/dev/docs/prompt",
     button: "阅读文档",
     icon: ChartBarIcon
   },
   {
     name: "提交Doc",
     description: "上传您的文档，并分享给其他用户",
-    href: "/dev/doc/doc",
+    href: "/dev/docs/doc",
     button: "阅读文档",
     icon: CursorClickIcon
   },
   {
     name: "提交应用",
     description: "提交您的应用，并分享给其他用户",
-    href: "/dev/doc/app",
+    href: "/dev/docs/app",
     button: "阅读文档",
     icon: ShieldCheckIcon
   }
