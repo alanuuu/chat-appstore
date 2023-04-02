@@ -11,7 +11,7 @@
               <span class="sr-only">Workflow</span>
               <img
                 class="h-full w-auto sm:h-10"
-                src="@/assets/img/logo-main.png"
+                src="@/assets/img/logo.png"
                 alt=""
               />
             </nuxt-link>

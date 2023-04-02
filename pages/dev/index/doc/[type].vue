@@ -85,10 +85,13 @@
           <div
             class="relative text-gray-800 text-base mx-auto max-w-prose lg:max-w-none"
           >
-            <ul role="list">
-              <li class="cursor-pointer" v-for="(item, index) in titleList">
-                <a :href="'#' + item.id">
-                  {{ item.text }}
+            <ul role="list" class="menu-list">
+              <li
+                :class="['cursor-pointer', 'text-gray-600', item.tag]"
+                v-for="(item, index) in list"
+              >
+                <a :href="'#' + item.props.id">
+                  {{ item.props.id }}
                 </a>
               </li>
             </ul>
@@ -96,16 +99,7 @@
         </div>
         <div class="mt-8 lg:mt-0 lg:col-start-2 lg:col-end-5">
           <div class="text-base max-w-prose mx-auto lg:max-w-none">
-            <h4></h4>
-            <component
-              class="mb-4 text-gray-500"
-              :is="item.type"
-              :id="item.id"
-              :src="item.url"
-              v-for="(item, index) in list"
-            >
-              {{ item.text }}
-            </component>
+            <ContentRenderer class="doc mb-4 text-gray-500" :value="data" />
           </div>
           <div
             class="mt-5 prose prose-indigo text-gray-500 mx-auto lg:max-w-none lg:row-start-1 lg:col-start-1"
@@ -125,110 +119,54 @@ import {
 } from "@headlessui/vue";
 import { XIcon, MenuIcon } from "@heroicons/vue/outline";
 import { SourceType, SourceMap } from "~~/types";
-
 const sidebarOpen = ref(false);
-
-const docs = {
-  [SourceType.prompt]: [
-    {
-      id: 1,
-      type: "h3",
-      text: "创建机器人"
-    },
-    {
-      id: 2,
-      type: "p",
-      text: "填写你的机器人基本信息"
-    },
-    {
-      id: 3,
-      type: "img",
-      url: "https://cdn-static-devbit.csdn.net/appstore/imgs/Snipaste_2023-03-29_16-35-25.png"
-    },
-    {
-      id: 4,
-      type: "h3",
-      text: "测试机器人"
-    },
-    {
-      id: 5,
-      type: "h3",
-      text: "提交机器人"
-    }
-  ],
-  [SourceType.doc]: [
-    {
-      id: 1,
-      type: "h3",
-      text: "创建文档机器人"
-    },
-    {
-      id: 2,
-      type: "p",
-      text: "填写你的文档基本信息"
-    },
-    {
-      id: 3,
-      type: "img",
-      url: "https://cdn-static-devbit.csdn.net/appstore/imgs/Snipaste_2023-03-29_16-53-03.png"
-    },
-    {
-      id: 4,
-      type: "h3",
-      text: "测试文档机器人"
-    },
-    {
-      id: 5,
-      type: "h3",
-      text: "提交机器人"
-    }
-  ],
-  [SourceType.app]: [
-    {
-      id: 1,
-      type: "h3",
-      text: "申请开发者token"
-    },
-    {
-      id: 2,
-      type: "p",
-      text: "每个开发者拥有一个独立的token，注册成为开发者即送三个月免费token"
-    },
-    {
-      id: 3,
-      type: "img",
-      url: "https://cdn-static-devbit.csdn.net/appstore/imgs/Snipaste_2023-03-30_13-35-18.png"
-    },
-    {
-      id: 4,
-      type: "h3",
-      text: "测试应用"
-    },
-    {
-      id: 5,
-      type: "h3",
-      text: "提交应用"
-    }
-  ]
-};
 
 const route = useRoute();
 const type = route.params.type;
+const { data } = await useAsyncData("doc", () =>
+  queryContent(`/${type}`).findOne()
+);
 
-console.log(type);
-
-const list = computed(() => docs[type]);
-const titleList = computed(() => {
-  return list.value.filter(item => item.type === "h3");
+const list = computed(() => {
+  const arr = data?.value?.body?.children;
+  if (!arr.length) return [];
+  return arr.filter(item => /^h\d{1}/.test(item.tag));
 });
+
+console.log(list);
 </script>
 
 <style lang="scss" scoped>
-h3 {
-  font-size: 20px;
-  color: #1c1c28;
+.menu-list {
+  position: fixed;
+  top: 12rem;
+  // margin-top: 4rem;
+  li {
+    margin: 0.6rem 0;
+    &.h2 {
+      padding-left: 1.2rem;
+      font-size: 15px;
+    }
+  }
 }
-img {
-  max-width: 520px;
+:deep(.doc) {
+  h1 {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin: 4rem 0;
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 1.35rem;
+    color: #555570;
+    margin: 4rem 0 3.2rem;
+    font-weight: bold;
+  }
+  p {
+    margin: 2rem 0;
+  }
+  img {
+    max-width: 520px;
+  }
 }
 </style>

@@ -17,11 +17,16 @@ export default defineNuxtConfig({
     // baseURL: "/chat-appstore/",
     buildAssetsDir: "/_nuxt/"
   },
+  devServer: {
+    host: "loc.csdn.net",
+    port: 3000
+  },
   css: ["@/assets/css/elementui.scss"],
   imports: {
     autoImport: true
   },
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
+  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@nuxt/content"],
+
   tailwindcss: {
     cssPath: "@/assets/css/tailwind.css"
   },
