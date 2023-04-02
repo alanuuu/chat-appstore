@@ -54,8 +54,8 @@
 
 <script>
 import { ref } from "vue";
-import { CheckCircleIcon } from "@heroicons/vue/outline";
-import { XIcon } from "@heroicons/vue/solid";
+import { CheckCircleIcon } from "@heroicons/vue/outline/index";
+import { XIcon } from "@heroicons/vue/solid/index";
 
 export default {
   components: {

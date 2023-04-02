@@ -48,7 +48,7 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Static HTML export with Nuxt
-        run: yarn generate
+        run: yarn build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
@@ -58,10 +58,9 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: .output/public
+      url: .output/server
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+        run: node index.mjs

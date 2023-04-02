@@ -117,7 +117,7 @@ import {
   TransitionChild,
   TransitionRoot
 } from "@headlessui/vue";
-import { XIcon, MenuIcon } from "@heroicons/vue/outline";
+import { XIcon, MenuIcon } from "@heroicons/vue/outline/index";
 import { SourceType, SourceMap } from "~~/types";
 const sidebarOpen = ref(false);
 

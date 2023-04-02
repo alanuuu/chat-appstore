@@ -153,8 +153,8 @@
 </template>
 <script setup lang="ts">
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
-import { MenuIcon, XIcon } from "@heroicons/vue/outline";
-import { SearchIcon } from "@heroicons/vue/solid";
+import { MenuIcon, XIcon } from "@heroicons/vue/outline/index";
+import { SearchIcon } from "@heroicons/vue/solid/index";
 import { useStore } from "@/store";
 import Login from "~~/components/LoginCom.vue";
 

@@ -451,8 +451,8 @@ import {
   UserGroupIcon,
   ViewGridIcon,
   XIcon
-} from "@heroicons/vue/outline";
-import { ChevronDownIcon } from "@heroicons/vue/solid";
+} from "@heroicons/vue/outline/index";
+import { ChevronDownIcon } from "@heroicons/vue/solid/index";
 import { useStore } from "~~/store";
 import LoginCom from "./LoginCom.vue";
 const store = useStore();

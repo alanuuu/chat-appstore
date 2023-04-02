@@ -92,8 +92,8 @@
 
 <script>
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
-import { MenuIcon, XIcon } from "@heroicons/vue/outline";
-import { ChevronRightIcon } from "@heroicons/vue/solid";
+import { MenuIcon, XIcon } from "@heroicons/vue/outline/index";
+import { ChevronRightIcon } from "@heroicons/vue/solid/index";
 
 const navigation = [
   { name: "Product", href: "#" },

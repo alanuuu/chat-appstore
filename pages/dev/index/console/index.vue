@@ -160,7 +160,7 @@ import {
   MenuIcon,
   UsersIcon,
   XIcon
-} from "@heroicons/vue/outline";
+} from "@heroicons/vue/outline/index";
 import { SourceType } from "~~/types";
 
 const route = useRoute();

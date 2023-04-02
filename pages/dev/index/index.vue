@@ -68,7 +68,7 @@
 </template>
 
 <script>
-// import { NewspaperIcon, PhoneIcon, SupportIcon } from '@heroicons/vue/outline'
+// import { NewspaperIcon, PhoneIcon, SupportIcon } from '@heroicons/vue/outline/index'
 import { ChatDotRound, Document, Mouse } from "@element-plus/icons-vue";
 
 const supportLinks = [
