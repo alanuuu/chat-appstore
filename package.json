@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "build": "NUXT_APP_BASE_URL=/chat-appstore/ nuxt build",
+    "build": "nuxt build",
     "dev": "NUXT_APP_BASE_URL=/ nuxt dev",
     "serve": "NUXT_APP_BASE_URL=/ nuxt dev",
     "start": "NUXT_APP_BASE_URL=/ nuxt dev",
