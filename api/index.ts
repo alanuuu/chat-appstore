@@ -22,5 +22,15 @@ export default {
   get_card_up_url: (params: RequestParams) =>
     axios.get("/user/get_card_up_url", { params }),
   reg_dev: (params: RequestParams) => axios.post("/user/reg_dev", params),
-  put: (params: RequestParams) => axios(params)
+  uploadFile: (params: RequestParams) =>
+    axios.put(params.url, params.file, {
+      headers: {
+        "Content-Type": "application/octet-stream"
+      }
+    }),
+  // 获取token信息
+  getTokenInfo: (params: RequestParams) =>
+    axios.get("/admin/dev/token/get_info", { params }),
+  get_token_for_free: (params: RequestParams) =>
+    axios.post("/admin/dev/token/get_token_for_free", params)
 };

@@ -19,6 +19,9 @@
               <el-radio class="ml-20" label="2" size="large">企业</el-radio>
             </el-radio-group>
           </el-form-item>
+          <!-- <el-form-item label="企业名称" prop="type">
+            <el-input v-model="form.company" />
+          </el-form-item> -->
           <h2 class="font-bold my-8 text-gray-600">联系方式</h2>
           <el-form-item label="姓名" prop="realName">
             <el-input v-model="form.realName" />
@@ -124,7 +127,7 @@ import {
 import { Plus } from "@element-plus/icons-vue";
 import { useStore } from "@/store";
 import api from "@/api";
-import { qs } from "@/assets/utils";
+import { qs, imageToBase64 } from "@/assets/utils";
 import { IdCard } from "~~/types";
 import axios from "axios";
 import pick from "lodash.pick";
@@ -137,6 +140,7 @@ const form = reactive({
   cardId: "",
   idcardImg1: "",
   idcardImg2: "",
+  // company: "",
   rule: false
 });
 
@@ -167,7 +171,7 @@ const rules = {
     {
       required: true,
       trigger: "change",
-      validator: (rule: any, value: string, callback: () => void) => {
+      validator: (rule: any, value: string, callback: CallBack) => {
         if (!form.idcardImg1 || !form.idcardImg2) {
           return callback(new Error("请上传身份证正反面"));
         }
@@ -186,7 +190,6 @@ const rules = {
 };
 
 const upload = (file: File, type: IdCard) => {
-  console.log(file);
   api
     .get_card_up_url({
       aspect: type
@@ -195,25 +198,28 @@ const upload = (file: File, type: IdCard) => {
       console.log(res);
       const url = res?.data.replace(/^http/, "https");
       if (!url) return;
-      switch (type) {
-        case IdCard.front:
-          form.idcardImg1 =
-            "https://cdn-static-devbit.csdn.net/appstore/imgs/Snipaste_2023-03-30_13-35-18.png";
-          break;
-        case IdCard.back:
-          form.idcardImg2 =
-            "https://cdn-static-devbit.csdn.net/appstore/imgs/Snipaste_2023-03-30_13-35-18.png";
-          break;
-        default:
-          break;
-      }
-      // axios({
-      //   url,
-      //   method: "PUT",
-      //   data: file
-      // }).then(res => {
-      //   console.log(res);
-      // });
+
+      api
+        .uploadFile({
+          url,
+          file
+        })
+        .then(res => {
+          switch (type) {
+            case IdCard.front:
+              imageToBase64(file, url => {
+                form.idcardImg1 = url;
+              });
+              break;
+            case IdCard.back:
+              imageToBase64(file, url => {
+                form.idcardImg2 = url;
+              });
+              break;
+            default:
+              break;
+          }
+        });
     });
   return false;
 };
@@ -227,7 +233,7 @@ const submitForm = () => {
       console.log(res);
       if (res?.code !== 200) return;
       ElNotification.success("提交成功，请等待审核");
-      navigateTo('/dev/console/dashboard')
+      navigateTo("/dev/console/dashboard");
     });
   });
 };
@@ -269,10 +275,14 @@ const login = () => {
       margin-bottom: 4px;
       font-weight: bold;
     }
+    .el-upload {
+      display: block;
+      text-align: center;
+    }
   }
   .avatar-uploader .avatar {
     width: 100%;
-    height: 178px;
+    height: 122px;
     display: block;
   }
   :deep(.el-upload) {

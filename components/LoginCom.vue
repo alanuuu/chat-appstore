@@ -143,10 +143,12 @@ const submitForm = () => {
         return;
       }
       ElNotification.success("登录成功");
-      localStorage.setItem("token", res?.data);
+      const data = res?.data
+      localStorage.setItem("token", data?.token);
       localStorage.removeItem("codeImgKey");
       const userInfo = {
-        username: form.username
+        username: form.username,
+        role: data.userRole
       };
       localStorage.setItem("userInfo", JSON.stringify(userInfo));
       store.changeUserInfo(userInfo);

@@ -47,7 +47,7 @@
                 <span>开发文档</span>
                 <ChevronDownIcon
                   :class="[
-                    open ? 'text-gray-600' : 'text-gray-400',
+                    open ? 'rotate-180 text-gray-600' : 'text-gray-400',
                     'ml-2 h-5 w-5 group-hover:text-gray-500'
                   ]"
                   aria-hidden="true"
@@ -72,6 +72,7 @@
                       v-for="item in solutions"
                       :key="item.name"
                       :to="item.href"
+                      @click=""
                       class="-m-3 p-3 flex flex-col justify-between rounded-lg hover:bg-gray-50"
                     >
                       <div class="flex md:h-full lg:flex-col">
@@ -312,7 +313,7 @@
               <div>
                 <img
                   class="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                  src="@/assets/img/logo.png"
                   alt="Workflow"
                 />
               </div>

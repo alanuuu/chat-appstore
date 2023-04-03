@@ -96,7 +96,7 @@ import {
   ElDialog,
   ElNotification
 } from "element-plus";
-import { useStore} from "@/store";
+import { useStore } from "@/store";
 import api from "@/api";
 import { useMsg } from "@/assets/hooks";
 import { qs } from "@/assets/utils";
@@ -122,7 +122,7 @@ const rules = {
     {
       required: true,
       trigger: "blur",
-      validator: (rule: any, value: string, callback: () => void) => {
+      validator: (rule: any, value: string, callback: CallBack) => {
         if (value.trim() === "") {
           callback(new Error("请输入用户名"));
         } else {
@@ -151,7 +151,7 @@ const rules = {
     {
       trigger: "blur",
       required: true,
-      validator: (rule: any, value: string, callback: () => void) => {
+      validator: (rule: any, value: string, callback: CallBack) => {
         if (value.trim() === "") {
           callback(new Error("请输入手机号"));
         } else {
@@ -180,7 +180,7 @@ const rules = {
     { min: 6, max: 20, message: "密码长度在6到20个字符之间", trigger: "blur" },
     {
       trigger: "blur",
-      validator: (rule: any, value: string, callback: () => void) => {
+      validator: (rule: any, value: string, callback: CallBack) => {
         if (value === "") {
           callback(new Error("请再次输入密码"));
         } else if (value !== form.password) {

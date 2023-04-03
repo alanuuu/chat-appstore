@@ -55,10 +55,10 @@
             <p class="mt-4 text-base text-gray-500">{{ link.description }}</p>
           </div>
           <div class="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
-            <a
-              :href="link.href"
+            <nuxt-link
+              :to="link.href"
               class="text-base font-medium text-indigo-700 hover:text-indigo-600"
-              >立即提交<span aria-hidden="true"> &rarr;</span></a
+              >立即提交<span aria-hidden="true"> &rarr;</span></nuxt-link
             >
           </div>
         </div>
@@ -70,29 +70,27 @@
 <script>
 // import { NewspaperIcon, PhoneIcon, SupportIcon } from '@heroicons/vue/outline/index'
 import { ChatDotRound, Document, Mouse } from "@element-plus/icons-vue";
+import { SourceType } from "~~/types";
 
 const supportLinks = [
   {
     name: "提交机器人",
-    href: "#",
-    description:
-      "提交基于Prompt构建的机器人，分享给其他人使用",
+    href: `/dev/submit/${SourceType.prompt}`,
+    description: "提交基于Prompt构建的机器人，分享给其他人使用",
     icon: ChatDotRound
     // icon: PhoneIcon,
   },
   {
     name: "提交Doc AI",
-    href: "#",
-    description:
-      "上传文档创建文档机器人",
+    href: `/dev/submit/${SourceType.doc}`,
+    description: "上传文档创建文档机器人",
     icon: Document
     // icon: SupportIcon,
   },
   {
     name: "提交应用",
-    href: "#",
-    description:
-      "提交您的应用",
+    href: `/dev/submit/${SourceType.app}`,
+    description: "提交您的应用",
     icon: Mouse
     // icon: NewspaperIcon,
   }

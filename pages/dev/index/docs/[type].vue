@@ -91,7 +91,7 @@
                 v-for="(item, index) in list"
               >
                 <a :href="'#' + item.props.id">
-                  {{ item.props.id }}
+                  {{ item.children?.[0].value }}
                 </a>
               </li>
             </ul>
@@ -130,7 +130,7 @@ const { data } = await useAsyncData("doc", () =>
 const list = computed(() => {
   const arr = data?.value?.body?.children;
   if (!arr.length) return [];
-  return arr.filter(item => /^h\d{1}/.test(item.tag));
+  return arr.filter(item => /^h(2|3){1}/.test(item.tag));
 });
 
 console.log(list);
@@ -145,6 +145,10 @@ console.log(list);
     margin: 0.6rem 0;
     &.h2 {
       padding-left: 1.2rem;
+      font-size: 16px;
+    }
+    &.h3 {
+      padding-left: 2rem;
       font-size: 15px;
     }
   }
@@ -158,6 +162,12 @@ console.log(list);
   }
   h2 {
     font-size: 1.35rem;
+    color: #555570;
+    margin: 4rem 0 3.2rem;
+    font-weight: bold;
+  }
+  h3 {
+    font-size: 1.2rem;
     color: #555570;
     margin: 4rem 0 3.2rem;
     font-weight: bold;
