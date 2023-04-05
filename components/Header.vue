@@ -11,7 +11,7 @@
               <span class="sr-only">Workflow</span>
               <img
                 class="h-full w-auto sm:h-10"
-                src="@/assets/img/logo.png"
+                src="@/assets/imgs/logo.png"
                 alt=""
               />
             </nuxt-link>
@@ -108,7 +108,7 @@
             <div>
               <img
                 class="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                src="https://tailwindui.com/imgs/logos/workflow-mark-indigo-600.svg"
                 alt=""
               />
             </div>

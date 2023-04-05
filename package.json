@@ -24,6 +24,11 @@
     "@nuxt/content": "^2.5.2",
     "@pinia/nuxt": "^0.4.7",
     "axios": "^1.3.4",
-    "lodash.pick": "^4.4.0"
+    "lodash.pick": "^4.4.0",
+    "lodash.throttle": "^4.1.1",
+    "markdown-it": "^13.0.1",
+    "markdown-it-attrs": "^4.1.6",
+    "event-source-polyfill": "^1.0.31",
+    "highlight.js": "^10.4.1"
   }
 }

@@ -14,20 +14,24 @@
           class="demo-ruleForm w-full"
           size="large"
         >
-          <el-form-item :label="`${pageTitle}名称`" prop="name">
-            <el-input v-model="form.name" />
+          <el-form-item :label="`${pageTitle}名称`" prop="pname">
+            <el-input v-model="form.pname" />
           </el-form-item>
-          <el-form-item :label="`${pageTitle}图标`" prop="logo">
-            <upload key="logo" />
+          <el-form-item :label="`${pageTitle}图标`" prop="icon">
+            <upload :url="uploadUrl" @submit="uploadImg" />
           </el-form-item>
-          <el-form-item label="分类" prop="cate">
+          <el-form-item label="分类" prop="category">
             <el-select
               class="w-full"
               placeholder="请选择分类"
-              v-model="form.cate"
+              v-model="form.category"
             >
-              <el-option :label="1" :value="1"></el-option>
-              <el-option :label="2" :value="2"></el-option>
+              <el-option
+                v-for="item in categoryList"
+                :key="item.categoryId"
+                :label="item.categoryName"
+                :value="item.categoryId"
+              ></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="描述" prop="desc">
@@ -36,9 +40,9 @@
           <el-form-item
             v-if="type === SourceType.prompt"
             label="Prompt"
-            prop="content"
+            prop="prompt"
           >
-            <el-input type="textarea" rows="6" v-model="form.content" />
+            <el-input type="textarea" rows="6" v-model="form.prompt" />
           </el-form-item>
           <el-form-item
             v-if="type === SourceType.doc"
@@ -104,7 +108,7 @@ import {
   ElNotification
 } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
-import { useStore} from "@/store";
+import { useStore } from "@/store";
 import api from "@/api";
 import { useMsg } from "@/assets/hooks";
 import { qs } from "@/assets/utils";
@@ -115,15 +119,15 @@ const store = useStore();
 const route = useRoute();
 
 const form = reactive({
-  name: "",
-  logo: "",
-  cate: "",
+  pname: "",
+  icon: "",
+  category: "",
   desc: "",
-  content: ""
+  prompt: ""
 });
 
 const rules = {
-  name: [
+  pname: [
     {
       required: true,
       message: "请输入名称",
@@ -135,62 +139,70 @@ const rules = {
       trigger: "blur"
     }
   ],
-  logo: [{ required: false, message: "请上传图标", trigger: "change" }],
-  cate: [{ required: true, message: "请选择分类", trigger: "change" }],
+  icon: [{ required: false, message: "请上传图标", trigger: "change" }],
+  category: [{ required: true, message: "请选择分类", trigger: "change" }],
   desc: [{ required: true, message: "请输入描述", trigger: "blur" }],
-  content: [{ required: true, message: "请输入Prompt", trigger: "blur" }]
+  prompt: [{ required: true, message: "请输入Prompt", trigger: "blur" }]
+};
+
+const [type, id] = route.params.rest as SourceType[];
+
+// 获取分类
+const categoryList = ref<Category[]>([]);
+const CategoryMap = {
+  [SourceType.prompt]: api.get_prompt_category,
+  [SourceType.doc]: api.get_prompt_category,
+  [SourceType.app]: api.get_prompt_category
+};
+const getCategory = () => {
+  CategoryMap[type]({}).then(({ data: res }) => {
+    categoryList.value = res.data;
+  });
+};
+
+onMounted(() => {
+  getCategory();
+});
+
+// 提交
+const SubmitMap = {
+  [SourceType.prompt]: api.submit_prompt,
+  [SourceType.doc]: api.submit_prompt,
+  [SourceType.app]: api.submit_prompt
 };
 
 const formEl = ref<any>(null);
 const submitForm = () => {
   formEl.value.validate((valid: boolean) => {
     if (!valid) return false;
-    const data = qs(form);
-    api.register(data).then(({ data: res }) => {
+    SubmitMap[type](form).then(({ data: res }) => {
       console.log(res);
-      if (res?.code !== 200) return;
-      ElNotification.success("注册成功!");
+      if (res.code !== 200) return;
+      ElNotification.success(res.msg);
+      navigateTo(`/dev/console/${type}`);
     });
   });
 };
 
-const [type, id] = route.params.rest as SourceType[];
+// 上传图标
+const UploadUrlMap = {
+  [SourceType.prompt]: api.get_prompt_icon_upload_url,
+  [SourceType.doc]: api.get_prompt_icon_upload_url,
+  [SourceType.app]: api.get_prompt_icon_upload_url
+};
+const uploadUrl = computed(() => {
+  return UploadUrlMap[type];
+});
 
 const pageTitle = computed(() => {
   return (id ? "修改" : "提交") + SourceMap[type];
 });
 
-// const btnText = ref("获取验证码");
-// const btnTime = ref(5);
-// const btnDisabled = ref(false);
-// const getCode = () => {
-//   if (btnDisabled.value) return;
-//   api.sendMsg({}).then(({ data: res }) => {
-//     console.log(res);
-//     btnDisabled.value = true;
-//     btnText.value = btnTime.value + "s后重试";
-//     let timer = setInterval(() => {
-//       btnText.value = --btnTime.value + "s后重试";
-//       if (btnTime.value <= 0) {
-//         clearInterval(timer);
-//         btnText.value = "获取验证码";
-//         btnDisabled.value = false;
-//         btnTime.value = 5;
-//       }
-//     }, 1000);
-//   });
-// };
-const { btnText, btnDisabled, getMsgCode } = useMsg();
-const getCode = () => {
-  formEl.value.validateField(["desc"]).then((valid: boolean) => {
-    if (!valid) return false;
-    getMsgCode(form.desc);
-  });
+const uploadImg = (url: string) => {
+  console.log(url);
+  form.icon = url;
 };
 
-const login = () => {
-  store.login(true);
-};
 // definePageMeta({
 //   layout: false
 // });

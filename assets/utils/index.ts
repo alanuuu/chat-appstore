@@ -108,3 +108,28 @@ export const imageToBase64 = (file: File, callback: (url: string) => void) => {
   };
   reader.readAsDataURL(file);
 };
+
+export const urlToObject = (url: string) => {
+  try {
+    const [host, paramStr] = url.split("?");
+    const params =
+      paramStr?.split("&").reduce((res: Record<string, any>, item) => {
+        const [key, val] = item.split("=");
+        res[key] = decodeURIComponent(val);
+        return res;
+      }, {}) || {};
+
+    return {
+      host,
+      params
+    };
+  } catch (err) {
+    return null;
+  }
+};
+
+export const isMobile = () => {
+  return navigator.userAgent.match(
+    /(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i
+  );
+};

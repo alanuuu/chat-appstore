@@ -14,23 +14,33 @@
 import api from "@/api";
 import { ElUpload, ElIcon } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
+import { imageToBase64 } from "@/assets/utils";
 const props = defineProps({
-  key: {
-    type: String,
+  url: {
+    type: Function,
     default: ""
   }
 });
 const emits = defineEmits(["submit"]);
 
 const upload = (file: File) => {
-  console.log(file);
-  api
-    .get_card_up_url({
-      aspect: props.key
-    })
-    .then(({ data: res }) => {
-      console.log(res);
-    });
+  props.url({}).then(({ data: res }: { data: any }) => {
+    const url = res?.data?.uploadUrl?.replace(/^http/, "https");
+    if (!url) return;
+    // emits("submit", res?.data?.downloadUrl);
+      api
+        .uploadFile({
+          url,
+          file
+        })
+        .then(res => {
+          console.log("url", res);
+
+          imageToBase64(file, url => {
+            emits("submit", url);
+          });
+        });
+  });
   return false;
 };
 

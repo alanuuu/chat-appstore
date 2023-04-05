@@ -13,7 +13,13 @@ interface DevToken {
   value: string;
 }
 
+interface Category {
+  categoryId: number;
+  categoryName: string;
+}
+
 type CallBack = (error?: Error) => void;
 
 declare type UserInfo = User | "";
 declare module "lodash.pick";
+declare module "event-source-polyfill";

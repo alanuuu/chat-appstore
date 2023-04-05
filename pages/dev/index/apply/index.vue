@@ -195,7 +195,6 @@ const upload = (file: File, type: IdCard) => {
       aspect: type
     })
     .then(({ data: res }) => {
-      console.log(res);
       const url = res?.data.replace(/^http/, "https");
       if (!url) return;
 

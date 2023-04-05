@@ -8,8 +8,10 @@ axios.defaults.baseURL = "https://devbitapi-test.csdn.net/ai";
 
 axios.interceptors.request.use(
   config => {
-    const token = localStorage.getItem("token");
-    token && (config.headers.Authorization = "Bearer " + token);
+    if (process.client) {
+      const token = localStorage.getItem("token");
+      token && (config.headers.Authorization = "Bearer " + token);
+    }
     return config;
   },
   error => {
@@ -22,8 +24,6 @@ axios.interceptors.response.use(
     const {
       data: { code }
     } = response;
-    console.log(response);
-
     if (code === 403 || code === 401) {
       ElNotification.warning("登录信息过期，请重新登陆");
       const store = useStore();

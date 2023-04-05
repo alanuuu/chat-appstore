@@ -14,7 +14,7 @@
             <span class="sr-only">Workflow</span>
             <img
               class="h-8 w-auto sm:h-10"
-              src="@/assets/img/logo.png"
+              src="@/assets/imgs/logo.png"
               alt=""
             />
           </a>
@@ -111,12 +111,12 @@
                 </PopoverPanel>
               </transition>
             </Popover>
-            <!-- <a
-              href="#"
+            <nuxt-link
+              to="/dev/chat"
               class="text-base font-medium text-gray-500 hover:text-gray-900"
             >
-              Pricing
-            </a> -->
+              机器人
+            </nuxt-link>
 
             <!-- <Popover v-slot="{ open }">
               <PopoverButton
@@ -313,7 +313,7 @@
               <div>
                 <img
                   class="h-8 w-auto"
-                  src="@/assets/img/logo.png"
+                  src="@/assets/imgs/logo.png"
                   alt="Workflow"
                 />
               </div>
